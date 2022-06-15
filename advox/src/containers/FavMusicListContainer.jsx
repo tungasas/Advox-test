@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { AlbumForm, AlbumList, AlbumSorter, AlbumToggle } from "../components";
+import { Row, Col } from "antd";
+import { StyledWrapper } from "./FavMusicListContainer.style";
 
 const FavMusicListContainer = () => {
   const [albums, setAlbums] = useState(() => {
@@ -30,6 +32,8 @@ const FavMusicListContainer = () => {
     }
     return albums;
   }, [albums, sortBy]);
+
+  const [displayMode, setDisplayMode] = useState("grid");
 
   useEffect(() => {
     localStorage.setItem("albums", JSON.stringify(albums));
@@ -69,16 +73,38 @@ const FavMusicListContainer = () => {
   };
 
   return (
-    <div>
-      <AlbumForm onSubmit={handleSubmit} />
-      <AlbumSorter onChange={handleSort} />
-      <AlbumToggle />
-      <AlbumList
-        albums={sortedAlbums}
-        onRemove={handleRemove}
-        onClickBest={handleClickBest}
-      />
-    </div>
+    <StyledWrapper>
+      <div className="form-container">
+        <div className="header">
+          <span>My </span>
+          <span>Favourite </span>
+          <span>Albums</span>
+        </div>
+        <div className="form-wrapper">
+          <AlbumForm onSubmit={handleSubmit} />
+        </div>
+      </div>
+
+      <div className="list-container">
+        <Row justify="space-between" align="middle">
+          <div className="title">Albums</div>
+          <Row align="center">
+            <div className="sorter-wrapper">
+              <AlbumToggle onChange={(e) => setDisplayMode(e.target.value)} />
+            </div>
+            <AlbumSorter onChange={handleSort} />
+          </Row>
+        </Row>
+        <div className="list">
+          <AlbumList
+            albums={sortedAlbums}
+            onRemove={handleRemove}
+            onClickBest={handleClickBest}
+            mode={displayMode}
+          />
+        </div>
+      </div>
+    </StyledWrapper>
   );
 };
 

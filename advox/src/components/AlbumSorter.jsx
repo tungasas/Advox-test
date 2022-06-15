@@ -4,8 +4,14 @@ import { Select } from "antd";
 import { SORT_OPTIONS } from "../constants";
 
 const StyledWrapper = styled.div`
+  label {
+    margin-right: 8px;
+  }
   .ant-select {
-    min-width: 180px;
+    min-width: 160px;
+  }
+  .ant-select-selector {
+    border-radius: 6px !important;
   }
 `;
 

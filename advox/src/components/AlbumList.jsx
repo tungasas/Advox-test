@@ -1,23 +1,38 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import AlbumCard from "./AlbumCard";
 
-const StyledWrapper = styled.div``;
+const StyledWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 16px;
 
-const AlbumList = ({ albums, onRemove, onClickBest }) => {
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+
+  ${(props) =>
+    props.mode === "list" &&
+    css`
+      grid-template-columns: 1fr !important;
+    `}
+`;
+
+const AlbumList = ({ albums, onRemove, onClickBest, mode }) => {
   return (
-    <StyledWrapper>
-      <div className="title">Album List</div>
-      <div className="list">
-        {albums.map((album) => (
-          <AlbumCard
-            key={album.id}
-            album={album}
-            onRemove={onRemove}
-            onClickBest={onClickBest}
-          />
-        ))}
-      </div>
+    <StyledWrapper mode={mode}>
+      {albums.map((album) => (
+        <AlbumCard
+          key={album.id}
+          album={album}
+          onRemove={onRemove}
+          onClickBest={onClickBest}
+        />
+      ))}
     </StyledWrapper>
   );
 };
