@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Select } from "antd";
 import { SORT_OPTIONS } from "../constants";
+import { useTranslation } from "../hooks/useTranslation";
+import { LanguageContext } from "../context/LanguageContext";
 
 const StyledWrapper = styled.div`
   label {
     margin-right: 8px;
   }
   .ant-select {
-    min-width: 160px;
+    min-width: 180px;
   }
   .ant-select-selector {
     border-radius: 6px !important;
@@ -16,13 +18,15 @@ const StyledWrapper = styled.div`
 `;
 
 const AlbumSorter = ({ onChange }) => {
+  const { language } = useContext(LanguageContext);
+  const { t } = useTranslation();
   return (
     <StyledWrapper>
-      <label>Sort by:</label>
+      <label>{t("list.sort_label")}</label>
       <Select
-        options={SORT_OPTIONS}
+        options={SORT_OPTIONS[language]}
         onChange={onChange}
-        placeholder="Select an option"
+        placeholder={t("list.sort_placeholder")}
       />
     </StyledWrapper>
   );

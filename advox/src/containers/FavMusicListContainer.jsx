@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { AlbumForm, AlbumList, AlbumSorter, AlbumToggle } from "../components";
 import { Row, Col } from "antd";
 import { StyledWrapper } from "./FavMusicListContainer.style";
+import { useTranslation } from "../hooks/useTranslation";
 
 const FavMusicListContainer = () => {
   const [albums, setAlbums] = useState(() => {
@@ -34,6 +35,8 @@ const FavMusicListContainer = () => {
   }, [albums, sortBy]);
 
   const [displayMode, setDisplayMode] = useState("grid");
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     localStorage.setItem("albums", JSON.stringify(albums));
@@ -75,11 +78,7 @@ const FavMusicListContainer = () => {
   return (
     <StyledWrapper>
       <div className="form-container">
-        <div className="header">
-          <span>My </span>
-          <span>Favourite </span>
-          <span>Albums</span>
-        </div>
+        <div className="header">{t("form.header")}</div>
         <div className="form-wrapper">
           <AlbumForm onSubmit={handleSubmit} />
         </div>
@@ -87,7 +86,7 @@ const FavMusicListContainer = () => {
 
       <div className="list-container">
         <Row justify="space-between" align="middle">
-          <div className="title">Albums</div>
+          <div className="title">{t("list.title")}</div>
           <Row align="center">
             <div className="sorter-wrapper">
               <AlbumToggle onChange={(e) => setDisplayMode(e.target.value)} />

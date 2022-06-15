@@ -27,8 +27,7 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const AlbumToggle = ({ onGrid, onList, onChange }) => {
-  // const handleClick =
+const AlbumToggle = ({ onChange }) => {
   return (
     <StyledWrapper>
       <Radio.Group onChange={onChange} defaultValue="grid">

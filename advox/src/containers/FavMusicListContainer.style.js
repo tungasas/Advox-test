@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledWrapper = styled.div`
-  padding-top: 40px;
   .form-container {
     display: flex;
     align-items: center;

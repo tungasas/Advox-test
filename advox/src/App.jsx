@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import FavMusicListContainer from "./containers/FavMusicListContainer";
+import { LanguageSwitcher } from "./components";
+import { LanguageContext } from "./context/LanguageContext";
 
 const StyledWrapper = styled.div`
   margin: 0 auto;
@@ -20,10 +22,14 @@ const StyledWrapper = styled.div`
 `;
 
 function App() {
+  const [language, setLanguage] = useState("english");
   return (
-    <StyledWrapper>
-      <FavMusicListContainer />
-    </StyledWrapper>
+    <LanguageContext.Provider value={{ language, setLanguage }}>
+      <StyledWrapper>
+        <LanguageSwitcher />
+        <FavMusicListContainer />
+      </StyledWrapper>
+    </LanguageContext.Provider>
   );
 }
 

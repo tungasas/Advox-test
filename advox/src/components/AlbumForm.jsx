@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Form, Input, Button } from "antd";
+import { useTranslation } from "../hooks/useTranslation";
 
 const StyledWrapper = styled.div`
   text-align: center;
@@ -48,6 +49,7 @@ const StyledWrapper = styled.div`
 
 const AlbumForm = ({ onSubmit }) => {
   const [form] = Form.useForm();
+  const { t } = useTranslation();
 
   const handleFinish = (values) => {
     onSubmit(values);
@@ -56,7 +58,7 @@ const AlbumForm = ({ onSubmit }) => {
 
   return (
     <StyledWrapper>
-      <div className="title">Add a new album</div>
+      <div className="title">{t("form.title")}</div>
       <Form name="album" autoComplete="off" form={form} onFinish={handleFinish}>
         <Form.Item
           // label="Album"
@@ -64,11 +66,11 @@ const AlbumForm = ({ onSubmit }) => {
           rules={[
             {
               required: true,
-              message: "Please input an album!",
+              message: t("form.album_required_message"),
             },
           ]}
         >
-          <Input placeholder="Enter an album" />
+          <Input placeholder={t("form.album_placeholder")} />
         </Form.Item>
         <Form.Item
           // label="Singer"
@@ -76,15 +78,15 @@ const AlbumForm = ({ onSubmit }) => {
           rules={[
             {
               required: true,
-              message: "Please input a singer!",
+              message: t("form.singer_required_message"),
             },
           ]}
         >
-          <Input placeholder="Enter a singer" />
+          <Input placeholder={t("form.singer_placeholder")} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Add to List
+            {t("form.submit_button")}
           </Button>
         </Form.Item>
       </Form>
